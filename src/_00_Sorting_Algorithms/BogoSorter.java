@@ -6,7 +6,7 @@ public class BogoSorter extends Sorter {
 	public BogoSorter() {
 		type = "Bogo";
 	}
-	
+	Random rand=new Random();
 	// Bogo sort is a joke sorting algorithm. It is considered the most 
 	// inefficient sorting algorithm while still maintaining the possibility
 	// of eventually sorting data.
@@ -16,10 +16,30 @@ public class BogoSorter extends Sorter {
 	//	if yes, finished; if no, go to step 2.
 	// STEP 2. Take two random elements in the array and swap them.
 	// STEP 3. Go back to step 1.
-	
+	private boolean intArraySorted(int[] ints) {
+		for (int i = 1; i < ints.length; i++) {
+			if(ints[i]<ints[i-1]) {
+				return false;
+			}
+		}
+		return true;
+	}
 	//1. Complete the sort method using the Bogo sort algorithm. 
 	@Override
 	void sort(int[] array, SortingVisualizer display) {
-
+		while(true) {
+		if(intArraySorted(array)) {
+			break;
+		}else {
+			int index1=rand.nextInt(array.length);
+			int index2=rand.nextInt(array.length);
+			int value=array[index2];
+			array[index2]=array[index1];
+			array[index1]=value;
+		}
+		if(rand.nextInt(10)==0) {
+		display.updateDisplay();
+		}
+		}
 	}
 }
