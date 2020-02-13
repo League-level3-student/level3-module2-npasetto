@@ -1,10 +1,13 @@
 package _00_Sorting_Algorithms;
 
+import java.util.Random;
+
 public class MergeSorter extends Sorter {
 	public MergeSorter() {
 		type = "Merge";
 	}
 	
+	Random rand=new Random();
 	//0. Since this sorting algorithm uses recursion, 
 	//   we'll make a helper method called mergeSort.
 	//   Complete the steps in the mergeSort method.
@@ -13,14 +16,43 @@ public class MergeSorter extends Sorter {
 	@Override
 	void sort(int[] array, SortingVisualizer display) {
 		//20. call the mergeSort method with 0 and the length of the array minus one
+		mergeSort(array,0,array.length-1,display);
 	}
 	
 	private void mergeSort(int[] array, int low, int high, SortingVisualizer display) {
 		//1. Create a temporary integer array that is the same length as the passed in array.
-		
+		if(rand.nextInt(10)==0) {
+		display.updateDisplay();
+		}
+		int[] newarr=new int[array.length];
 		//2. make an if statement that checks if low is less than high
 		//   and put the rest of the method inside of it
-
+			if(low<high) {
+				int middle=(low+high)/2;
+				mergeSort(array,low,middle,display);
+				mergeSort(array,middle+1,high,display);
+				for (int i = low; i <= high; i++) {
+					newarr[i]=array[i];
+				}
+				int i=low;
+				int j=middle+1;
+				int k=low;
+				while(i<=middle && j<=high) {
+					if(newarr[i]<=newarr[j]) {
+						array[k]=newarr[i];
+						i++;
+					}else {
+						array[k]=newarr[j];
+						j++;
+					}
+					k++;
+				}
+				while(i<=middle) {
+					array[k]=newarr[i];
+					k++;
+					i++;
+				}
+			}
 			//3. Create an integer called middle and set it 
 			//   equal to the half way point between low and high
             
